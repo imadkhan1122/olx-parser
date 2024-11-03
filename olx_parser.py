@@ -1,7 +1,7 @@
-import requests
 from bs4 import BeautifulSoup
 from time import sleep
 from multiprocessing import Pool
+from security import safe_requests
 
 def get_listing(url):
     headers = {
@@ -9,7 +9,7 @@ def get_listing(url):
     html = None
     links = None
     try:
-        r = requests.get(url, headers=headers, timeout=10)
+        r = safe_requests.get(url, headers=headers, timeout=10)
     
         if r.status_code == 200:
             html = r.text
@@ -30,7 +30,7 @@ def parse(URL):
     info = []
 
     try:
-        r = requests.get(url, headers=headers, timeout=10)
+        r = safe_requests.get(url, headers=headers, timeout=10)
         sleep(2)
 
         if r.status_code == 200:
